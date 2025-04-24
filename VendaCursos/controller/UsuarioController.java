@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package biblioMVC2.controller;
+package com.example.VendaCursos.controller;
 
-import biblioMVC2.model.Usuario;
-import biblioMVC2.dao.UsuarioDAO;
+import com.example.VendaCursos.model.Usuario;
+import com.example.VendaCursos.model.UsuarioDAO;
+
+
 
 /**
  *
