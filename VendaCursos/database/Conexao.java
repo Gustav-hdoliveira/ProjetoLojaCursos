@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package biblioMVC2.database;
+package com.example.VendaCursos.database;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
@@ -28,7 +28,8 @@ public class Conexao {
         try{
             if(connection == null || connection.isClosed()){
                 connection = DriverManager.getConnection(URL, DB_USER, DB_PASSWORD);
-                criarTabela();
+                criarTabelaUsuarios();
+                criarTabelaCursos();
                 System.out.println("Conectado ao banco");
             }
         } catch (SQLException error){
@@ -39,7 +40,7 @@ public class Conexao {
         return connection;
     }
     
-    private static void criarTabela(){
+    private static void criarTabelaUsuarios(){
         String sql = "CREATE TABLE IF NOT EXISTS usuarios ("
                 + "id INT AUTO_INCREMENT PRIMARY KEY, "
                 + "usuario VARCHAR(255) NOT NULL UNIQUE, "
@@ -48,7 +49,20 @@ public class Conexao {
             stmt.execute(sql);
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
-            throw new RuntimeException("Erro ao crar a tabela", e);
+            throw new RuntimeException("Erro ao crar a tabela cursos ", e);
+        }
+    }
+    
+    private static void criarTabelaCursos(){
+        String sql = "CREATE TABLE IF NOT EXISTS usuario ("
+                + "id INT AUTO_INCREMENT PRIMARY KEY, "
+                + "usuario VARCHAR(255) NOT NULL UNIQUE, "
+                + "senha VARCHAR(255) NOT NULL)";
+        try (Statement stmt = connection.createStatement()){
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException("Erro ao crar a tabela cursos ", e);
         }
     }
 }
