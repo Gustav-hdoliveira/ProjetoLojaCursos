@@ -4,6 +4,8 @@
  */
 package com.example.VendaCursos.model;
 
+import com.example.VendaCursos.services.StringDivider;
+
 /**
  *
  * @author GUSTAVOHENRIQUEDEOLI
@@ -14,10 +16,10 @@ public class Class {
     String[] text;
     int price;
     
-    public Class(int id_class, String title, String[] text, int price) {
+    public Class(int id_class, String title, String textFull, double chunks, int price) {
         this.id_class = id_class;
         this.title = title;
-        this.text = text;
+        text = StringDivider.divideString(textFull, chunks);
         this.price = price;
     }
 

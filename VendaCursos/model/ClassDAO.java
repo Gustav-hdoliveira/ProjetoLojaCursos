@@ -7,6 +7,7 @@ package com.example.VendaCursos.model;
 import com.example.VendaCursos.database.ConnectS;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
@@ -16,15 +17,13 @@ import java.sql.SQLException;
  * @author GUSTAVOHENRIQUEDEOLI
  */
 public class ClassDAO {
-    public static boolean RegistrarCurso(Class classN){
+    public static boolean registerClass(Class classN){
         String sql = "INSERT INTO classes (title, text, price) VALUES (?, ?)";
         String titleN = classN.getTitle();
         double priceN = classN.getPrice();
         String[] fullText = classN.getText();
-        int i = 0;
-        String fullTextN = null;
-        int lenght = classN.text.length;
-        String.join(fullTextN, fullText);
+        String fullTextN = String.join("", fullText);
+        
         try(Connection conn = ConnectS.conexao(); PreparedStatement stmt = conn.prepareStatement(sql)){
                 stmt.setString(1, titleN);
                 stmt.setString(2, fullTextN);
@@ -38,5 +37,28 @@ public class ClassDAO {
                 e.printStackTrace();
                 return false;
             }
+    }
+    
+    public static boolean getClassByTitle(String title, Class[] FoundClasses, double chunks){
+        String sql = "SELECT id, title, text, price FROM classes WHERE title = ?;";
+        try (Connection conn = ConnectS.conexao(); 
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        
+                stmt.setString(1, title );
+                ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Class newClass = new Class();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return false;
+    }
+    
+    public static boolean getClassById(){
+        String sql = "SELECT id, title, text, price FROM classes WHERE id = ?;";
+        
     }
 }
