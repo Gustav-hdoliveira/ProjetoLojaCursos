@@ -58,7 +58,7 @@ public class ConnectS {
                 + "id INT AUTO_INCREMENT PRIMARY KEY, "
                 + "title VARCHAR(255) NOT NULL UNIQUE, "
                 + "text TEXT NOT NULL, "
-                + "price INT NOT NULL)";
+                + "price DOUBLE NOT NULL)";
         try (Statement stmt = connection.createStatement()){
             stmt.execute(sql);
         } catch (SQLException e) {

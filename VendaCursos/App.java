@@ -6,6 +6,12 @@ package com.example.VendaCursos;
 public class App {
 
     public static void main(String[] args) {
+        String batata = "batata";
+        String com = " com ";
+        String arroz = "arroz";
+        String[] fullText = {batata + com + arroz};
+        String fullTextN = String.join("", fullText);
         
+        System.out.println(fullTextN);
     }
 }
