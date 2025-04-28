@@ -4,10 +4,16 @@
  */
 package com.example.VendaCursos.controller;
 
+import com.example.VendaCursos.model.ClassDAO;
+
 /**
  *
  * @author GUSTAVOHENRIQUEDEOLI
  */
 public class ClassController {
+    ClassDAO DAO = new ClassDAO();
     
+    public boolean registerClass(Class classN){
+        
+    }
 }

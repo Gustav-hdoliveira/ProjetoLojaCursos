@@ -5,6 +5,7 @@
 package com.example.VendaCursos.model;
 
 import com.example.VendaCursos.services.StringDivider;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,12 +14,12 @@ import com.example.VendaCursos.services.StringDivider;
 public class Class {
     int id_class;
     String title;
-    String[] text;
-    int price;
+    ArrayList<Integer> text;
+    double price;
     
-    public Class(int id_class, String title, String textFull, double chunks, int price) {
-        this.id_class = id_class;
+    public Class(String title, String textFull, int chunks, int opcion, double price) {
         this.title = title;
+        text = new ArrayList<>();
         text = StringDivider.divideString(textFull, chunks);
         this.price = price;
     }
@@ -51,7 +52,7 @@ public class Class {
         return text;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

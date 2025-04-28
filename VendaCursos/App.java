@@ -3,6 +3,8 @@
  */
 package com.example.VendaCursos;
 
+import com.example.VendaCursos.services.StringDivider;
+
 public class App {
 
     public static void main(String[] args) {
@@ -11,7 +13,8 @@ public class App {
         String arroz = "arroz";
         String[] fullText = {batata + com + arroz};
         String fullTextN = String.join("", fullText);
-        
-        System.out.println(fullTextN);
+        System.out.println(fullText);
+        fullText = StringDivider.divideString(fullTextN, 3);
+        System.out.println(fullText[0] + fullText[1] + fullText[2]);
     }
 }

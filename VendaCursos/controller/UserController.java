@@ -20,9 +20,7 @@ public class UserController {
         return UserDAO.registerUser(User);
     }
     
-    public boolean validateLogin(String username, char[] charpassword){
-        String password = new String(charpassword).trim();
-        
+    public boolean validateLogin(String username, String password){
         User User = new User(username, password);
         return UserDAO.validateLogin(User);
     }

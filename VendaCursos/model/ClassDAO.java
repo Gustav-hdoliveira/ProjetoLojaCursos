@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 
@@ -17,12 +18,12 @@ import java.sql.SQLException;
  * @author GUSTAVOHENRIQUEDEOLI
  */
 public class ClassDAO {
-    public static boolean registerClass(Class classN){
+    public boolean registerClass(Class classN){
         String sql = "INSERT INTO classes (title, text, price) VALUES (?, ?)";
         String titleN = classN.getTitle();
         double priceN = classN.getPrice();
-        String[] fullText = classN.getText();
-        String fullTextN = String.join("", fullText);
+        String[] fragText = classN.getText();
+        String fullTextN = String.join("", fragText);
         
         try(Connection conn = ConnectS.conexao(); PreparedStatement stmt = conn.prepareStatement(sql)){
                 stmt.setString(1, titleN);
@@ -31,34 +32,59 @@ public class ClassDAO {
                 
                 
                 stmt.executeUpdate();
-                
+                System.out.println("Classe registrada com sucesso.");
                 return true;
             } catch (SQLException e){
                 e.printStackTrace();
                 return false;
             }
+        
     }
     
-    public static boolean getClassByTitle(String title, Class[] FoundClasses, double chunks){
+    public ArrayList<Class> getClassByTitle(String title, ArrayList<Class> FoundClasses, int chunks){
         String sql = "SELECT id, title, text, price FROM classes WHERE title = ?;";
-        try (Connection conn = ConnectS.conexao(); 
+        try (Connection conn = ConnectS.conexao();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
         
                 stmt.setString(1, title );
                 ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Class newClass = new Class();
+                int idS = rs.getInt("id");
+                String titleS = rs.getString("title");
+                String textS = rs.getString("text");
+                double priceS = rs.getDouble("price");
+                Class newClass = new Class(titleS, textS, chunks, priceS);
+                newClass.setid_class(idS);
+                FoundClasses.add(newClass);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            
         }
-        return false;
+        return FoundClasses;
     }
     
-    public static boolean getClassById(){
-        String sql = "SELECT id, title, text, price FROM classes WHERE id = ?;";
+    public ArrayList<Class> getClassById(int id, ArrayList<Class> FoundClasses, int chunks){
+        String sql = "SELECT id, title, text, price FROM classes WHERE title = ?;";
+        try (Connection conn = ConnectS.conexao(); 
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
         
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int idS = rs.getInt("id");
+                String titleS = rs.getString("title");
+                String textS = rs.getString("text");
+                double priceS = rs.getDouble("price");
+                Class newClass = new Class(titleS, textS, chunks, priceS);
+                newClass.setid_class(idS);
+                FoundClasses.add(newClass);
+                return FoundClasses;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return FoundClasses;
     }
 }
