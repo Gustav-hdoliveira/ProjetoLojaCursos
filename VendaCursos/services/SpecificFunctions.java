@@ -11,14 +11,5 @@ import java.util.ArrayList;
  * @author PC GAMER
  */
 public class SpecificFunctions {
-    public static ArrayList<String> StringAction(ArrayList<String> arraylist, String textFull, int chunks, int option ){
-        int i = 0;
-        if(option == 1){
-            String[] results = StringDivider.divideString(textFull, chunks);
-            while(i < results.length){
-                
-            }
-        }
-        
-    }
+    
 }

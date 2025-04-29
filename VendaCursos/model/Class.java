@@ -14,13 +14,12 @@ import java.util.ArrayList;
 public class Class {
     int id_class;
     String title;
-    ArrayList<Integer> text;
+    ArrayList<String> text;
     double price;
     
-    public Class(String title, String textFull, int chunks, int opcion, double price) {
+    public Class(String title, double price) {
         this.title = title;
         text = new ArrayList<>();
-        text = StringDivider.divideString(textFull, chunks);
         this.price = price;
     }
 
@@ -32,8 +31,8 @@ public class Class {
         this.title = title;
     }
 
-    public void setText(String[] text) {
-        this.text = text;
+    public void setText(String textFull, int chunks) {
+        text = StringDivider.divideString(textFull, chunks);
     }
 
     public void setprice(int price) {
@@ -48,7 +47,7 @@ public class Class {
         return title;
     }
 
-    public String[] getText() {
+    public ArrayList getText() {
         return text;
     }
 

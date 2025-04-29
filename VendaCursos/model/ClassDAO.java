@@ -22,7 +22,7 @@ public class ClassDAO {
         String sql = "INSERT INTO classes (title, text, price) VALUES (?, ?)";
         String titleN = classN.getTitle();
         double priceN = classN.getPrice();
-        String[] fragText = classN.getText();
+        ArrayList<String> fragText = classN.getText();
         String fullTextN = String.join("", fragText);
         
         try(Connection conn = ConnectS.conexao(); PreparedStatement stmt = conn.prepareStatement(sql)){
@@ -54,7 +54,8 @@ public class ClassDAO {
                 String titleS = rs.getString("title");
                 String textS = rs.getString("text");
                 double priceS = rs.getDouble("price");
-                Class newClass = new Class(titleS, textS, chunks, priceS);
+                Class newClass = new Class(titleS, priceS);
+                newClass.setText(textS, chunks);
                 newClass.setid_class(idS);
                 FoundClasses.add(newClass);
             }
@@ -77,10 +78,10 @@ public class ClassDAO {
                 String titleS = rs.getString("title");
                 String textS = rs.getString("text");
                 double priceS = rs.getDouble("price");
-                Class newClass = new Class(titleS, textS, chunks, priceS);
+                 Class newClass = new Class(titleS, priceS);
+                newClass.setText(textS, chunks);
                 newClass.setid_class(idS);
                 FoundClasses.add(newClass);
-                return FoundClasses;
             }
         } catch (SQLException e) {
             e.printStackTrace();

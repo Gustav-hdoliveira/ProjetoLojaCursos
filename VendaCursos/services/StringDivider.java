@@ -4,13 +4,16 @@
  */
 package com.example.VendaCursos.services;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author GUSTAVOHENRIQUEDEOLI
  */
 public class StringDivider {
     
-    public static String[] divideString(String text, int chunkSize) {
+    public static ArrayList<String> divideString(String text, int chunkSize) {
+        ArrayList<String> NewChunks = null;
         if (chunkSize <= 0) {
             throw new IllegalArgumentException("Chunk size must be greater than 0");
         }
@@ -22,8 +25,9 @@ public class StringDivider {
             int startIndex = i * chunkSize;
             int endIndex = Math.min(startIndex + chunkSize, text.length());
             chunks[i] = text.substring(startIndex, endIndex);
+            NewChunks.add(chunks[i]);
         }
 
-        return chunks;
+        return NewChunks;
     }
 }
