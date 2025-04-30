@@ -4,17 +4,27 @@
  */
 package com.example.VendaCursos.view;
 
+import com.example.VendaCursos.controller.ClassController;
+import com.example.VendaCursos.model.Course;
+import com.example.VendaCursos.services.SpecificFunctions;
+import java.util.ArrayList;
+
 /**
  *
  * @author PC GAMER
  */
 public class ClassRegisterClass extends javax.swing.JFrame {
-
+    ClassController controller;
     /**
      * Creates new form ClassRegisterClass
      */
-    public ClassRegisterClass() {
+    public ClassRegisterClass(Course NC) {
         initComponents();
+        controller = new ClassController();
+        TxtFtitle.setText(NC.getTitle());
+        String priceStr = String.valueOf(NC.getPrice());
+        TxtFprice.setText(priceStr);
+        SpecificFunctions.configChunks(TxtFtxt, TxtFtxt0, TxtFtxt2, TxtFtxt3, TxtFtxt4, TxtFtxt5, NC);
     }
 
     /**
@@ -31,7 +41,6 @@ public class ClassRegisterClass extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        BtnAccount = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         TxtFtitle = new javax.swing.JTextField();
         TxtFtxt = new javax.swing.JTextField();
@@ -41,7 +50,6 @@ public class ClassRegisterClass extends javax.swing.JFrame {
         TxtFtxt4 = new javax.swing.JTextField();
         TxtFtxt5 = new javax.swing.JTextField();
         BtnAddClass = new javax.swing.JButton();
-        BtnAlter = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         TxtFprice = new javax.swing.JTextField();
@@ -81,8 +89,6 @@ public class ClassRegisterClass extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 102));
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        BtnAccount.setText("Your Acount");
-
         jLabel1.setText("Cursos-pilantragens");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -92,18 +98,14 @@ public class ClassRegisterClass extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
-                .addComponent(BtnAccount)
-                .addContainerGap())
+                .addContainerGap(514, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnAccount)
-                    .addComponent(jLabel1))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         TxtFtitle.setText("Title");
@@ -117,13 +119,6 @@ public class ClassRegisterClass extends javax.swing.JFrame {
         BtnAddClass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnAddClassActionPerformed(evt);
-            }
-        });
-
-        BtnAlter.setText("Alter Class");
-        BtnAlter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAlterActionPerformed(evt);
             }
         });
 
@@ -164,20 +159,16 @@ public class ClassRegisterClass extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(TxtFtxt)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 507, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(BtnAddClass)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TxtFprice, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(176, 176, 176)))
-                .addComponent(BtnAlter)
-                .addGap(25, 25, 25))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addContainerGap(619, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(BtnAddClass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TxtFprice, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(286, 286, 286))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
@@ -192,9 +183,9 @@ public class ClassRegisterClass extends javax.swing.JFrame {
                 .addComponent(TxtFtitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(TxtFtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(TxtFtxt0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(TxtFtxt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,16 +193,14 @@ public class ClassRegisterClass extends javax.swing.JFrame {
                 .addComponent(TxtFtxt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(TxtFtxt4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(TxtFtxt5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(BtnAddClass, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(BtnAlter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TxtFprice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(TxtFprice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -235,10 +224,6 @@ public class ClassRegisterClass extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnAlterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnAlterActionPerformed
-
     private void TxtFtitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtFtitleFocusGained
         if("Title".equals(TxtFtitle.getText())){
             TxtFtitle.setText("");
@@ -246,7 +231,12 @@ public class ClassRegisterClass extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtFtitleFocusGained
 
     private void BtnAddClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddClassActionPerformed
-        
+        String title = TxtFtitle.getText();
+        ArrayList<String> dataText = SpecificFunctions.textCompacter(TxtFtxt.getText(), TxtFtxt0.getText(), TxtFtxt2.getText(), TxtFtxt3.getText(), TxtFtxt4.getText(), TxtFtxt5.getText());
+        int chunks = SpecificFunctions.checkChunks(TxtFtxt.getText(), TxtFtxt0.getText(), TxtFtxt2.getText(), TxtFtxt3.getText(), TxtFtxt4.getText(), TxtFtxt5.getText());
+        String priceString = TxtFprice.getText();
+        double price = Double.parseDouble(priceString);
+        controller.registerClass(title, dataText, price, chunks);
     }//GEN-LAST:event_BtnAddClassActionPerformed
 
     /**
@@ -279,16 +269,14 @@ public class ClassRegisterClass extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClassRegisterClass().setVisible(true);
+                //new ClassRegisterClass().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAccount;
     private javax.swing.JButton BtnAccount1;
     private javax.swing.JButton BtnAddClass;
-    private javax.swing.JButton BtnAlter;
     private javax.swing.JTextField TxtFprice;
     private javax.swing.JTextField TxtFtitle;
     private javax.swing.JTextField TxtFtxt;

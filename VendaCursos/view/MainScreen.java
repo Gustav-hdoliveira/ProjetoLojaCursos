@@ -4,17 +4,37 @@
  */
 package com.example.VendaCursos.view;
 
+import com.example.VendaCursos.controller.ClassController;
+import com.example.VendaCursos.model.Course;
+import com.example.VendaCursos.services.SpecificFunctions;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author PC GAMER
  */
 public class MainScreen extends javax.swing.JFrame {
-
+    private DefaultListModel<String> model;
+    ClassController controller;
+    ArrayList<String> titles;
+    ArrayList<Course> foundCourses;
     /**
      * Creates new form MainScreen
      */
     public MainScreen() {
         initComponents();
+        model = new DefaultListModel<>();
+        listCourses.setModel(model);
+        controller = new ClassController();
+        int i = 0;
+        ArrayList<Course> cursos = controller.getClasses();
+        titles = SpecificFunctions.returnTitles(cursos);
+        while(i < titles.size()){
+            model.addElement(titles.get(i));
+            i++;
+        }
+        
     }
 
     /**
@@ -30,13 +50,13 @@ public class MainScreen extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        BtnAccount = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        ListClasses = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        listCourses = new javax.swing.JList<>();
+        BtnAcessClass = new javax.swing.JButton();
         TxtFsearch = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        BtnSearch = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 102));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -72,8 +92,6 @@ public class MainScreen extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 102));
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        BtnAccount.setText("Your Acount");
-
         jLabel1.setText("Cursos-pilantragens");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -83,24 +101,25 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnAccount)
-                .addContainerGap())
+                .addContainerGap(546, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnAccount)
-                    .addComponent(jLabel1))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        ListClasses.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jScrollPane1.setViewportView(ListClasses);
+        listCourses.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScrollPane1.setViewportView(listCourses);
 
-        jButton1.setText("Acess class");
+        BtnAcessClass.setText("Acess class");
+        BtnAcessClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAcessClassActionPerformed(evt);
+            }
+        });
 
         TxtFsearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +128,13 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Search classes:");
+
+        BtnSearch.setText("Search");
+        BtnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -125,8 +151,10 @@ public class MainScreen extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TxtFsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1)
+                                .addComponent(TxtFsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BtnSearch))
+                            .addComponent(BtnAcessClass)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 27, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -139,14 +167,16 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(81, 81, 81)
-                        .addComponent(TxtFsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TxtFsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnSearch)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(BtnAcessClass)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -176,6 +206,25 @@ public class MainScreen extends javax.swing.JFrame {
     private void TxtFsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtFsearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtFsearchActionPerformed
+
+    private void BtnAcessClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAcessClassActionPerformed
+        int index = listCourses.getSelectedIndex();
+        if (index != -1) { // Verifica se algo foi selecionado
+            Course Ncourse = foundCourses.get(index);
+            
+        }
+    }//GEN-LAST:event_BtnAcessClassActionPerformed
+
+    private void BtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSearchActionPerformed
+        foundCourses = controller.getClassByTitle(TxtFsearch.getText());
+        model = new DefaultListModel<>();
+        listCourses.setModel(model);
+        int i = 0;
+        while(i < foundCourses.size()){
+            model.addElement(titles.get(i));
+            i++;
+        }
+    }//GEN-LAST:event_BtnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,10 +262,9 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAccount;
-    private javax.swing.JList<String> ListClasses;
+    private javax.swing.JButton BtnAcessClass;
+    private javax.swing.JButton BtnSearch;
     private javax.swing.JTextField TxtFsearch;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -224,5 +272,6 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listCourses;
     // End of variables declaration//GEN-END:variables
 }

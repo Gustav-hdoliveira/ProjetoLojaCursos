@@ -18,17 +18,19 @@ import java.util.ArrayList;
  * @author GUSTAVOHENRIQUEDEOLI
  */
 public class ClassDAO {
-    public boolean registerClass(Class classN){
-        String sql = "INSERT INTO classes (title, text, price) VALUES (?, ?)";
-        String titleN = classN.getTitle();
-        double priceN = classN.getPrice();
-        ArrayList<String> fragText = classN.getText();
+    public boolean registerClass(Course CourseN){
+        String sql = "INSERT INTO classes (chunks, title, text, price) VALUES (?, ?, ?, ?)";
+        int chunksN = CourseN.getChunks();
+        String titleN = CourseN.getTitle();
+        double priceN = CourseN.getPrice();
+        ArrayList<String> fragText = CourseN.getText();
         String fullTextN = String.join("", fragText);
         
         try(Connection conn = ConnectS.conexao(); PreparedStatement stmt = conn.prepareStatement(sql)){
-                stmt.setString(1, titleN);
-                stmt.setString(2, fullTextN);
-                stmt.setDouble(3, priceN);
+                stmt.setInt(1, chunksN);
+                stmt.setString(2, titleN);
+                stmt.setString(3, fullTextN);
+                stmt.setDouble(4, priceN);
                 
                 
                 stmt.executeUpdate();
@@ -41,8 +43,31 @@ public class ClassDAO {
         
     }
     
-    public ArrayList<Class> getClassByTitle(String title, ArrayList<Class> FoundClasses, int chunks){
-        String sql = "SELECT id, title, text, price FROM classes WHERE title = ?;";
+    public ArrayList<Course> getClasses(){
+        String sql = "SELECT * FROM classes; ";
+        ArrayList<Course> FoundClasses = new ArrayList<>();
+        try(Connection conn = ConnectS.conexao(); PreparedStatement stmt = conn.prepareStatement(sql)){
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                int idS = rs.getInt("id");
+                String titleS = rs.getString("title");
+                String textS = rs.getString("text");
+                double priceS = rs.getDouble("price");
+                int chunksN = rs.getInt("chunks");
+                Course newCourse = new Course(titleS, priceS);
+                newCourse.setTextArray(textS, chunksN);
+                newCourse.setid_class(idS);
+                FoundClasses.add(newCourse);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return FoundClasses;
+    }
+    
+    public ArrayList<Course> getClassByTitle(String title){
+        String sql = "SELECT * FROM classes WHERE title = ?;";
+        ArrayList<Course> FoundClasses = new ArrayList<>();
         try (Connection conn = ConnectS.conexao();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
         
@@ -54,10 +79,11 @@ public class ClassDAO {
                 String titleS = rs.getString("title");
                 String textS = rs.getString("text");
                 double priceS = rs.getDouble("price");
-                Class newClass = new Class(titleS, priceS);
-                newClass.setText(textS, chunks);
-                newClass.setid_class(idS);
-                FoundClasses.add(newClass);
+                int chunksN = rs.getInt("chunks");
+                Course newCourse = new Course(titleS, priceS);
+                newCourse.setTextArray(textS, chunksN);
+                newCourse.setid_class(idS);
+                FoundClasses.add(newCourse);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,8 +91,9 @@ public class ClassDAO {
         return FoundClasses;
     }
     
-    public ArrayList<Class> getClassById(int id, ArrayList<Class> FoundClasses, int chunks){
-        String sql = "SELECT id, title, text, price FROM classes WHERE title = ?;";
+    public ArrayList<Course> getClassById(int id){
+        String sql = "SELECT * FROM classes WHERE id = ?;";
+        ArrayList<Course> FoundClasses = new ArrayList<>();
         try (Connection conn = ConnectS.conexao(); 
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
         
@@ -78,14 +105,16 @@ public class ClassDAO {
                 String titleS = rs.getString("title");
                 String textS = rs.getString("text");
                 double priceS = rs.getDouble("price");
-                 Class newClass = new Class(titleS, priceS);
-                newClass.setText(textS, chunks);
-                newClass.setid_class(idS);
-                FoundClasses.add(newClass);
+                int chunksN = rs.getInt("chunks");
+                 Course newCourse = new Course(titleS, priceS);
+                newCourse.setTextArray(textS, chunksN);
+                newCourse.setid_class(idS);
+                FoundClasses.add(newCourse);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return FoundClasses;
     }
+    
 }

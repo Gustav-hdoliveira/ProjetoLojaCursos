@@ -56,6 +56,7 @@ public class ConnectS {
     private static void createTableClasses(){
         String sql = "CREATE TABLE IF NOT EXISTS classes ("
                 + "id INT AUTO_INCREMENT PRIMARY KEY, "
+                + "chunks INT NOT NULL, "
                 + "title VARCHAR(255) NOT NULL UNIQUE, "
                 + "text TEXT NOT NULL, "
                 + "price DOUBLE NOT NULL)";
