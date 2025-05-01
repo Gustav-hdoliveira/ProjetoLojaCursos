@@ -3,10 +3,13 @@
  */
 package com.example.VendaCursos;
 
+import com.example.VendaCursos.database.ConnectS;
+import com.example.VendaCursos.view.LoginScreen;
+
 
 public class App {
 
     public static void main(String[] args) {
-        
+        new LoginScreen().setVisible(true);
     }
 }

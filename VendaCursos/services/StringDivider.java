@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class StringDivider {
     
     public static ArrayList<String> divideString(String text, int chunkSize) {
-        ArrayList<String> NewChunks = null;
+        ArrayList<String> NewChunks = new ArrayList<>();
         if (chunkSize <= 0) {
             throw new IllegalArgumentException("Chunk size must be greater than 0");
         }

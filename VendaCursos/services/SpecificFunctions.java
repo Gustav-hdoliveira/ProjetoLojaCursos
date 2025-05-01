@@ -26,11 +26,13 @@ public class SpecificFunctions {
         textArray.add(text); textArray.add(text1); textArray.add(text2); textArray.add(text3); textArray.add(text4); textArray.add(text5);
         while(i < textArray.size()){
             if("".equals(textArray.get(i))){
+                
+            } else {
                 chunks++;
             }
             i++;
         }
-        return i;
+        return chunks;
     }
     
     public static ArrayList<String> returnTitles(ArrayList<Course> array){
@@ -44,49 +46,44 @@ public class SpecificFunctions {
         return titles;
     }
     
-    public static void configChunks(JTextField a, JTextField b, JTextField c, JTextField d, JTextField e, JTextField f, Course course){
-        switch(course.getChunks()) {
-            case 1:
-                a.setText((String) course.getText().get(0));
-                break;
-            case 2:
-                a.setText((String) course.getText().get(0));
-                b.setText((String) course.getText().get(1));
-    // code block
-                break;
-            case 3:
-                a.setText((String) course.getText().get(0));
-                b.setText((String) course.getText().get(1));
-                c.setText((String) course.getText().get(2));
-                
-                break;
-           case 4:
-               a.setText((String) course.getText().get(0));
-               b.setText((String) course.getText().get(1));
-               c.setText((String) course.getText().get(2));
-               d.setText((String) course.getText().get(3));
-                
-                break;
-           case 5:
-               a.setText((String) course.getText().get(0));
-               b.setText((String) course.getText().get(1));
-               c.setText((String) course.getText().get(2));
-               d.setText((String) course.getText().get(3));
-               e.setText((String) course.getText().get(4));
-                
-                break;
-           case 6:
-               a.setText((String) course.getText().get(0));
-               b.setText((String) course.getText().get(1));
-               c.setText((String) course.getText().get(2));
-               d.setText((String) course.getText().get(3));
-               e.setText((String) course.getText().get(4));
-               f.setText((String) course.getText().get(5));
-                
-                break;
-            default:
-                a.setText("error");
-    // code block
-}
+    public static void configChunks(JTextField a, JTextField b, JTextField c, JTextField d, JTextField e, JTextField f, Course course) {
+    switch (course.getChunks()) {
+        case 6:
+            f.setText((String) course.getText().get(5));
+            e.setText((String) course.getText().get(4));
+            d.setText((String) course.getText().get(3));
+            c.setText((String) course.getText().get(2));
+            b.setText((String) course.getText().get(1));
+            a.setText((String) course.getText().get(0));
+            break;
+        case 5:
+            e.setText((String) course.getText().get(4));
+            d.setText((String) course.getText().get(3));
+            c.setText((String) course.getText().get(2));
+            b.setText((String) course.getText().get(1));
+            a.setText((String) course.getText().get(0));
+            break;
+        case 4:
+            d.setText((String) course.getText().get(3));
+            c.setText((String) course.getText().get(2));
+            b.setText((String) course.getText().get(1));
+            a.setText((String) course.getText().get(0));
+            break;
+        case 3:
+            c.setText((String) course.getText().get(2));
+            b.setText((String) course.getText().get(1));
+            a.setText((String) course.getText().get(0));
+            break;
+        case 2:
+            b.setText((String) course.getText().get(1));
+            a.setText((String) course.getText().get(0));
+            break;
+        case 1:
+            a.setText((String) course.getText().get(0));
+            break;
+        default:
+            a.setText("error");
+            break;
     }
+}
 }

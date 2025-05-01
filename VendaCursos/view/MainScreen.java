@@ -26,6 +26,7 @@ public class MainScreen extends javax.swing.JFrame {
         initComponents();
         model = new DefaultListModel<>();
         listCourses.setModel(model);
+        
         controller = new ClassController();
         int i = 0;
         ArrayList<Course> cursos = controller.getClasses();
@@ -57,6 +58,8 @@ public class MainScreen extends javax.swing.JFrame {
         TxtFsearch = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         BtnSearch = new javax.swing.JButton();
+        BtnCNCourse = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 102));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -136,6 +139,15 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        BtnCNCourse.setText("Create new");
+        BtnCNCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCNCourseActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("first click search once before");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -149,14 +161,22 @@ public class MainScreen extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TxtFsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnSearch))
-                            .addComponent(BtnAcessClass)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 27, Short.MAX_VALUE)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(TxtFsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(BtnSearch)))
+                                .addGap(0, 27, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(BtnAcessClass)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BtnCNCourse)
+                                .addGap(41, 41, 41)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -176,8 +196,11 @@ public class MainScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(BtnAcessClass)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnAcessClass)
+                    .addComponent(BtnCNCourse)
+                    .addComponent(jLabel3))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,20 +234,32 @@ public class MainScreen extends javax.swing.JFrame {
         int index = listCourses.getSelectedIndex();
         if (index != -1) { // Verifica se algo foi selecionado
             Course Ncourse = foundCourses.get(index);
-            
+            new ClassRegisterClass(Ncourse).setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_BtnAcessClassActionPerformed
 
     private void BtnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSearchActionPerformed
-        foundCourses = controller.getClassByTitle(TxtFsearch.getText());
+        if("".equals(TxtFsearch.getText())){
+            foundCourses = controller.getClasses();
+        } else {
+            foundCourses = controller.getClassByTitle(TxtFsearch.getText());
+        }
         model = new DefaultListModel<>();
         listCourses.setModel(model);
         int i = 0;
         while(i < foundCourses.size()){
-            model.addElement(titles.get(i));
+            //model.addElement(titles.get(i));
+            model.addElement(foundCourses.get(i).getTitle());
             i++;
         }
     }//GEN-LAST:event_BtnSearchActionPerformed
+
+    private void BtnCNCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCNCourseActionPerformed
+        Course NC = new Course("", 0);
+        new ClassRegisterClass(NC).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnCNCourseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,10 +298,12 @@ public class MainScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAcessClass;
+    private javax.swing.JButton BtnCNCourse;
     private javax.swing.JButton BtnSearch;
     private javax.swing.JTextField TxtFsearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

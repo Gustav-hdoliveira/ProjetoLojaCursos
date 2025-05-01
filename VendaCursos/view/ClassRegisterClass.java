@@ -42,6 +42,7 @@ public class ClassRegisterClass extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        BtnReturnScreen = new javax.swing.JButton();
         TxtFtitle = new javax.swing.JTextField();
         TxtFtxt = new javax.swing.JTextField();
         TxtFtxt0 = new javax.swing.JTextField();
@@ -91,6 +92,13 @@ public class ClassRegisterClass extends javax.swing.JFrame {
 
         jLabel1.setText("Cursos-pilantragens");
 
+        BtnReturnScreen.setText("Return");
+        BtnReturnScreen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnReturnScreenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -98,13 +106,17 @@ public class ClassRegisterClass extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
-                .addContainerGap(514, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtnReturnScreen)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(BtnReturnScreen))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -183,7 +195,7 @@ public class ClassRegisterClass extends javax.swing.JFrame {
                 .addComponent(TxtFtitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(TxtFtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(TxtFtxt0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,6 +251,11 @@ public class ClassRegisterClass extends javax.swing.JFrame {
         controller.registerClass(title, dataText, price, chunks);
     }//GEN-LAST:event_BtnAddClassActionPerformed
 
+    private void BtnReturnScreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReturnScreenActionPerformed
+        new MainScreen().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnReturnScreenActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -277,6 +294,7 @@ public class ClassRegisterClass extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAccount1;
     private javax.swing.JButton BtnAddClass;
+    private javax.swing.JButton BtnReturnScreen;
     private javax.swing.JTextField TxtFprice;
     private javax.swing.JTextField TxtFtitle;
     private javax.swing.JTextField TxtFtxt;

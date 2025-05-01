@@ -124,7 +124,8 @@ public class LoginScreen extends javax.swing.JFrame {
         String password = new String(PasswordF.getPassword()).trim();
         
         if(controller.validateLogin(username, password)){
-            
+            new MainScreen().setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Error, log-in not efected.");
         }
